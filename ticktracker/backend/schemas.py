@@ -12,6 +12,7 @@ class EventBase(BaseModel):
     price_high: Optional[float] = None
     url: str
     source: str
+    timezone: Optional[str] = None
 
 class EventCreate(EventBase):
     pass

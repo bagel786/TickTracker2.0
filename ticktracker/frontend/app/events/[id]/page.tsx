@@ -75,7 +75,15 @@ export default function EventPage() {
                         <div className="flex flex-wrap gap-6 text-gray-400">
                             <div className="flex items-center gap-2">
                                 <Calendar className="w-5 h-5" />
-                                <span>{new Date(event.date).toLocaleString()}</span>
+                                <span>{new Date(event.date).toLocaleString('en-US', {
+                                    weekday: 'short',
+                                    month: 'short',
+                                    day: 'numeric',
+                                    hour: 'numeric',
+                                    minute: 'numeric',
+                                    timeZone: event.timezone || undefined,
+                                    timeZoneName: 'short'
+                                })}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <MapPin className="w-5 h-5" />
@@ -86,7 +94,7 @@ export default function EventPage() {
 
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">Price History</h2>
-                        <PriceChart data={event.price_history} />
+                        <PriceChart data={event.price_history} timezone={event.timezone} />
                     </div>
                 </div>
 

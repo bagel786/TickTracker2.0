@@ -11,13 +11,17 @@ interface EventCardProps {
 export default function EventCard({ event }: EventCardProps) {
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
-    const date = new Date(event.date).toLocaleDateString('en-US', {
+    const dateOptions: Intl.DateTimeFormatOptions = {
         weekday: 'short',
         month: 'short',
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
-    });
+        timeZone: event.timezone || undefined,
+        timeZoneName: 'short'
+    };
+
+    const date = new Date(event.date).toLocaleString('en-US', dateOptions);
 
     const isEstimated = event.source.toLowerCase().includes('heuristic') || event.source.toLowerCase().includes('est');
 

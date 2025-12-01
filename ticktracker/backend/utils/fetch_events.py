@@ -56,6 +56,11 @@ async def fetch_ticketmaster_events(query: str, location: str, start_date: datet
                         # Safely extract URL
                         event_url = item.get("url", f"https://www.ticketmaster.com/event/{item['id']}")
 
+                        # Extract timezone
+                        timezone = None
+                        if "dates" in item and "timezone" in item["dates"]:
+                            timezone = item["dates"]["timezone"]
+
                         events.append(schemas.Event(
                             id=f"tm_{item['id']}",
                             name=item["name"],
@@ -66,6 +71,7 @@ async def fetch_ticketmaster_events(query: str, location: str, start_date: datet
                             price_high=price_high,
                             url=event_url,
                             source="ticketmaster",
+                            timezone=timezone,
                             created_at=datetime.utcnow()
                         ))
                     except Exception as e:
@@ -115,6 +121,7 @@ async def fetch_eventbrite_events(query: str, location: str, start_date: datetim
                         price_high=None,
                         url=item["url"],
                         source="eventbrite",
+                        timezone=item["start"].get("timezone"),
                         created_at=datetime.utcnow()
                     ))
             return events
@@ -165,6 +172,7 @@ async def fetch_seatgeek_events(query: str, location: str, start_date: datetime,
                         venue_data = item.get("venue", {})
                         venue = venue_data.get("name", "Unknown Venue")
                         city = venue_data.get("city", "Unknown City")
+                        timezone = venue_data.get("timezone")
                         
                         events.append(schemas.Event(
                             id=f"sg_{item['id']}",
@@ -176,6 +184,7 @@ async def fetch_seatgeek_events(query: str, location: str, start_date: datetime,
                             price_high=price_high,
                             url=item["url"],
                             source="seatgeek",
+                            timezone=timezone,
                             created_at=datetime.utcnow()
                         ))
                     except Exception as e:

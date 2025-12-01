@@ -5,9 +5,10 @@ import { PriceHistory } from '@/app/lib/types';
 
 interface PriceChartProps {
     data: PriceHistory[];
+    timezone?: string;
 }
 
-export default function PriceChart({ data }: PriceChartProps) {
+export default function PriceChart({ data, timezone }: PriceChartProps) {
     if (!data || data.length === 0) {
         return (
             <div className="h-[300px] flex items-center justify-center bg-white/5 rounded-xl border border-white/10">
@@ -20,7 +21,11 @@ export default function PriceChart({ data }: PriceChartProps) {
 
     const formattedData = data.map(item => ({
         ...item,
-        date: new Date(item.timestamp).toLocaleDateString(),
+        date: new Date(item.timestamp).toLocaleDateString('en-US', {
+            timeZone: timezone,
+            month: 'numeric',
+            day: 'numeric',
+        }),
     }));
 
     return (

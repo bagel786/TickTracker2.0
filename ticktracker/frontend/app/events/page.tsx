@@ -2,8 +2,8 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { searchEvents } from '@/app/lib/api';
-import { Event } from '@/app/lib/types';
+import { searchEvents } from '@/app/services/api';
+import { Event } from '@/app/services/types';
 import EventCard from '@/app/components/EventCard';
 import SearchBar from '@/app/components/SearchBar';
 import { Loader2 } from 'lucide-react';

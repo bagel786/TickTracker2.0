@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { getEventDetails, getPrediction } from '@/app/lib/api';
-import { EventDetail, Prediction } from '@/app/lib/types';
+import { getEventDetails, getPrediction } from '@/app/services/api';
+import { EventDetail, Prediction } from '@/app/services/types';
 import PriceChart from '@/app/components/PriceChart';
 import { Loader2, Calendar, MapPin, ExternalLink, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
@@ -94,7 +94,7 @@ export default function EventPage() {
 
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">Price History</h2>
-                        <PriceChart data={event.price_history} timezone={event.timezone} />
+                        <PriceChart data={event.price_history} timezone={event.timezone || undefined} />
                     </div>
                 </div>
 

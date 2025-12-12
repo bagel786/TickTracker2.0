@@ -292,23 +292,19 @@ def generate_mock_price(event: schemas.Event) -> schemas.Event:
     Generates a realistic estimated price based on event metadata.
     This is a fallback when APIs don't provide price data.
     """
-    import random
-    
     # Calculate heuristic price
     heuristic_data = pricing_heuristics.compute_heuristic_price(event)
     mid_price = heuristic_data["heuristic_mid"]
     
-    # Apply controlled randomness for visual naturalness
-    # The prompt says: "low_price = deterministic_price * random.uniform(0.9, 1.1)"
-    # "high_price = low_price * random.uniform(1.5, 2.5)"
-    
-    # Let's use the heuristic_mid as the deterministic price
-    low_price = mid_price * random.uniform(0.9, 1.1)
-    high_price = low_price * random.uniform(1.5, 2.5)
+    # Use deterministic ranges for estimation
+    # We estimate the low price is ~90% of the calculated average, high is ~130%
+    low_price = mid_price * 0.9
+    high_price = mid_price * 1.3
     
     event.price_low = round(low_price, 2)
     event.price_high = round(high_price, 2)
-    # Mark source as estimated
-    event.source = f"{event.source} (Heuristic)"
+    
+    # Mark source as estimated so the frontend can display a disclaimer
+    event.source = f"{event.source} (Est.)"
     
     return event

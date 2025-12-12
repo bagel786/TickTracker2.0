@@ -83,13 +83,35 @@ def get_price_history(event_id: str, db: Session = Depends(database.get_db)):
 
 @app.get("/predict/{event_id}", response_model=schemas.Prediction)
 def predict_price(event_id: str, db: Session = Depends(database.get_db)):
-    # Placeholder for ML prediction
-    # In real implementation, load model and predict
-    return {
-        "prediction": "wait",
-        "confidence": 0.85,
-        "next_7_days_projection": [100.0, 98.0, 95.0, 95.0, 96.0, 99.0, 105.0]
-    }
+    # Use the real prediction logic (ML + Heuristic blend)
+    # This keeps the app honest - no more fake 85% confidence
+    try:
+        # First, we need the event object. For now we reconstruct a minimal one or fetch from DB
+        # Ideally this endpoint should probably read the event from DB first
+        event = db.query(models.Event).filter(models.Event.id == event_id).first()
+        if not event:
+             raise HTTPException(status_code=404, detail="Event not found for prediction")
+             
+        # Convert DB model to Schema if needed, or pass DB model if compatible
+        # Our predict_price_for_event expects an object with attributes.
+        
+        prediction_result = price_model.predict_price_for_event(event)
+        
+        return {
+            "prediction": prediction_result["buy_recommendation"].split(" ")[0].lower(), # "buy", "wait", "monitor"
+            "confidence": float(prediction_result["confidence"]) / 100.0,
+            "next_7_days_projection": [
+                 prediction_result["pred_mid_price"] * (1 + (i * 0.01)) for i in range(7) # Placeholder projection based on mid price
+            ]
+        }
+    except Exception as e:
+        print(f"Prediction error: {e}")
+        # Fallback if something breaks
+        return {
+            "prediction": "monitor",
+            "confidence": 0.0,
+            "next_7_days_projection": []
+        }
 
 @app.post("/ml/train")
 def train_model():

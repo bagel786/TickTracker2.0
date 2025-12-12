@@ -147,6 +147,14 @@ export default function EventPage() {
                                 </span>
                             </div>
 
+                            {event.source && event.source.includes("(Est.)") && (
+                                <div className="mt-2 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                                    <p className="text-yellow-500 text-xs font-medium">
+                                        ⚠️ These are estimated prices based on historical data, not verified real-time listings.
+                                    </p>
+                                </div>
+                            )}
+
                             <a
                                 href={event.url}
                                 target="_blank"

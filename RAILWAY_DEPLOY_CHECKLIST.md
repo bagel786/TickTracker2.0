@@ -20,8 +20,9 @@
 1. Click **"New Project"**
 2. Select **"Deploy from GitHub repo"**
 3. Choose your repo: `TickTracker2.0`
-4. Railway will detect it's a Python app
-5. Click **"Add variables"** and add these:
+4. **IMPORTANT:** Set **Root Directory** to: `ticktracker/backend`
+5. Railway will detect it's a Python app
+6. Click **"Add variables"** and add these:
 
 ```
 TICKETMASTER_API_KEY=wAuWTTAqVrinFxhiIICRxvBwi9yGITx8
@@ -36,15 +37,17 @@ DATABASE_URL=sqlite:///./ticktracker.db
 ```
 
 6. Set **Root Directory** to: `ticktracker/backend`
-7. Click **"Deploy"**
-8. Wait for build to complete (~2-3 minutes)
+6. Click **"Deploy"** (or it may auto-deploy)
+7. Wait for build to complete (~2-3 minutes)
+8. Once deployed, click **"Settings"** → **"Networking"** → **"Generate Domain"**
 9. Copy your backend URL (e.g., `https://ticktracker-backend.up.railway.app`)
 
 ### Step 3: Deploy Frontend
-1. In same project, click **"New Service"**
-2. Select **"GitHub Repo"** (same repo)
-3. Railway will detect it's a Node.js app
-4. Click **"Add variables"** and add:
+1. In same project, click **"New Service"** → **"GitHub Repo"**
+2. Select the same repo: `TickTracker2.0`
+3. **IMPORTANT:** Set **Root Directory** to: `ticktracker/frontend`
+4. Railway will detect it's a Node.js app
+5. Click **"Add variables"** and add:
 
 ```
 NEXT_PUBLIC_API_URL=https://your-backend-url.up.railway.app
@@ -52,9 +55,10 @@ NEXT_PUBLIC_API_URL=https://your-backend-url.up.railway.app
 (Replace with your actual backend URL from Step 2)
 
 5. Set **Root Directory** to: `ticktracker/frontend`
-6. Click **"Deploy"**
+6. Click **"Deploy"** (or it may auto-deploy)
 7. Wait for build (~3-4 minutes)
-8. Copy your frontend URL
+8. Once deployed, click **"Settings"** → **"Networking"** → **"Generate Domain"**
+9. Copy your frontend URL
 
 ### Step 4: Update CORS
 1. Go back to backend service

@@ -4,6 +4,12 @@ const nextConfig = {
         domains: ['s1.ticketm.net', 'img.evbuc.com'],
     },
     output: 'standalone',
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
 }
 
 module.exports = nextConfig

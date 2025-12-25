@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./ticktracker/backend
+    container_name: ticktracker-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./ticktracker.db
+      - TICKETMASTER_API_KEY=${TICKETMASTER_API_KEY}
+      - TICKETMASTER_SECRET=${TICKETMASTER_SECRET}
+      - EVENTBRITE_PRIVATE_TOKEN=${EVENTBRITE_PRIVATE_TOKEN}
+      - SEATGEEK_CLIENT_ID=${SEATGEEK_CLIENT_ID}
+      - SEATGEEK_CLIENT_SECRET=${SEATGEEK_CLIENT_SECRET}
+      - CORS_ORIGINS=${CORS_ORIGINS:-*}
+    volumes:
+      - ./data:/app/data
+      - ./ticktracker.db:/app/ticktracker.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build: ./ticktracker/frontend
+    container_name: ticktracker-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Optional: Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: ticktracker-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+    profiles:
+      - with-nginx
+
+volumes:
+  data:

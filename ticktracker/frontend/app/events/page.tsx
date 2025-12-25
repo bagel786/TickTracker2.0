@@ -42,9 +42,7 @@ function SearchResults() {
                 <div className="flex flex-col gap-4">
                     <h1 className="text-3xl font-bold text-white">Search Results</h1>
                     <SearchBar />
-                    <div className="text-xs text-gray-500 font-mono">
-                        Debug: Loading={loading.toString()}, Events={events.length}, Error={errorMsg}
-                    </div>
+
                     {errorMsg && (
                         <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl">
                             Error: {errorMsg}

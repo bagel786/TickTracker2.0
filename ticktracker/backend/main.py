@@ -12,10 +12,11 @@ models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(title=settings.settings.PROJECT_NAME)
 
-# CORS
+# CORS - Configure allowed origins from environment
+cors_origins = settings.settings.CORS_ORIGINS.split(",") if settings.settings.CORS_ORIGINS != "*" else ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

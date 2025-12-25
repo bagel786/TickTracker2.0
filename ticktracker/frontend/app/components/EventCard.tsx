@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Event } from '@/app/services/types';
+import { Event } from '../services/types';
 import { Calendar, MapPin, Ticket, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
 import ReportPriceModal from './ReportPriceModal';

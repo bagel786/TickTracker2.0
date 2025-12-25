@@ -2,10 +2,10 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { searchEvents } from '@/app/services/api';
-import { Event } from '@/app/services/types';
-import EventCard from '@/app/components/EventCard';
-import SearchBar from '@/app/components/SearchBar';
+import { searchEvents } from '../services/api';
+import { Event } from '../services/types';
+import EventCard from '../components/EventCard';
+import SearchBar from '../components/SearchBar';
 import { Loader2 } from 'lucide-react';
 
 function SearchResults() {

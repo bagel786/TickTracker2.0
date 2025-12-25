@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { getEventDetails, getPrediction } from '@/app/services/api';
-import { EventDetail, Prediction } from '@/app/services/types';
-import PriceChart from '@/app/components/PriceChart';
+import { getEventDetails, getPrediction } from '../../services/api';
+import { EventDetail, Prediction } from '../../services/types';
+import PriceChart from '../../components/PriceChart';
 import { Loader2, Calendar, MapPin, ExternalLink, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 export default function EventPage() {

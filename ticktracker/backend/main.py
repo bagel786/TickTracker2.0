@@ -10,10 +10,27 @@ from ml import train, train_price_model, price_model
 
 models.Base.metadata.create_all(bind=database.engine)
 
-app = FastAPI(title=settings.settings.PROJECT_NAME)
-print("🚀 Starting TickTracker Backend...")
+import os
+import sys
 
-# CORS - Configure allowed origins from environment
+# ... existing imports ...
+from fastapi import Request
+
+app = FastAPI(title=settings.settings.PROJECT_NAME)
+
+port = os.getenv("PORT", "8000")
+print(f"🚀 Starting TickTracker Backend on PORT {port}...")
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    print(f"📥 Request: {request.method} {request.url}")
+    try:
+        response = await call_next(request)
+        print(f"📤 Response: {response.status_code}")
+        return response
+    except Exception as e:
+        print(f"❌ Request failed: {e}")
+        raise
 cors_origins = settings.settings.CORS_ORIGINS.split(",") if settings.settings.CORS_ORIGINS != "*" else ["*"]
 app.add_middleware(
     CORSMiddleware,

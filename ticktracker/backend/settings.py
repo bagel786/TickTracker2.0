@@ -5,8 +5,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "TickTracker"
     API_V1_STR: str = "/api"
     
-    # Database
-    DATABASE_URL: str = "sqlite:///./ticktracker.db"
+    # Database - Use /tmp for reliable write permissions in ephemeral containers
+    DATABASE_URL: str = "sqlite:////tmp/ticktracker.db"
     
     # Ticketmaster - Get your keys at https://developer.ticketmaster.com/
     TICKETMASTER_API_KEY: Optional[str] = ""

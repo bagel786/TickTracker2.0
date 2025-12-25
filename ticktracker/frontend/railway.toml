@@ -3,6 +3,6 @@ builder = "NIXPACKS"
 watchPatterns = ["ticktracker/frontend/**"]
 
 [deploy]
-startCommand = "sh -c 'export PATH=$PATH:./node_modules/.bin && next start -p $PORT -H 0.0.0.0'"
+startCommand = "npm start"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10

@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import numpy as np
 from datetime import datetime, timezone
-from ..utils import pricing_heuristics
+from utils import pricing_heuristics
 from typing import Dict, Any, Optional
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "models", "price_model.joblib")

@@ -4,8 +4,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import joblib
 import os
-from ..database import SessionLocal
-from ..models import PriceHistory, Event
+from database import SessionLocal
+from models import PriceHistory, Event
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "model.pkl")
 

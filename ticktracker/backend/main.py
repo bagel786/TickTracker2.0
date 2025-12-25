@@ -17,7 +17,7 @@ print("🚀 Starting TickTracker Backend...")
 cors_origins = settings.settings.CORS_ORIGINS.split(",") if settings.settings.CORS_ORIGINS != "*" else ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./ticktracker.db"
     
     # Ticketmaster - Get your keys at https://developer.ticketmaster.com/
-    TICKETMASTER_API_KEY: str
+    TICKETMASTER_API_KEY: Optional[str] = ""
     TICKETMASTER_SECRET: str = ""
     
     # Eventbrite - Get your keys at https://www.eventbrite.com/platform/api
@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     EVENTBRITE_PUBLIC_TOKEN: str = ""
     
     # SeatGeek - Sign up at https://platform.seatgeek.com/ to get your client ID
-    SEATGEEK_CLIENT_ID: str
+    SEATGEEK_CLIENT_ID: Optional[str] = ""
     SEATGEEK_CLIENT_SECRET: str = ""
     
     # CORS Origins (comma-separated list for production)

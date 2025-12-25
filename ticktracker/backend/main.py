@@ -3,10 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime, timedelta
-from . import models, schemas, database, settings
-from .utils import fetch_events, price_cleaner
+import models, schemas, database, settings
+from utils import fetch_events, price_cleaner
 
-from .ml import train, train_price_model, price_model
+from ml import train, train_price_model, price_model
 
 models.Base.metadata.create_all(bind=database.engine)
 

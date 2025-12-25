@@ -1,10 +1,10 @@
 import httpx
 from datetime import datetime, timedelta
 from typing import List, Optional
-from .. import schemas
-from ..settings import settings
+import schemas
+from settings import settings
 import asyncio
-from . import pricing_heuristics
+from utils import pricing_heuristics
 
 async def fetch_ticketmaster_events(query: str, location: str, start_date: datetime, end_date: datetime) -> List[schemas.Event]:
     url = "https://app.ticketmaster.com/discovery/v2/events.json"

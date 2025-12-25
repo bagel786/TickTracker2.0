@@ -11,6 +11,7 @@ from ml import train, train_price_model, price_model
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(title=settings.settings.PROJECT_NAME)
+print("🚀 Starting TickTracker Backend...")
 
 # CORS - Configure allowed origins from environment
 cors_origins = settings.settings.CORS_ORIGINS.split(",") if settings.settings.CORS_ORIGINS != "*" else ["*"]

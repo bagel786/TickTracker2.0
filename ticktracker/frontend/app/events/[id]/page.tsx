@@ -94,7 +94,7 @@ export default function EventPage() {
 
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">Price History</h2>
-                        <PriceChart data={event.price_history} timezone={event.timezone || undefined} />
+                        <PriceChart data={event.price_history} timezone={event.timezone || undefined} eventDate={event.date} />
                     </div>
                 </div>
 

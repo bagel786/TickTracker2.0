@@ -6,7 +6,15 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api"
     
     # Database - Use /tmp for reliable write permissions in ephemeral containers
+    # Should use os.getenv to allow overriding with a real DB URL (e.g. Postgres)
     DATABASE_URL: str = "sqlite:////tmp/ticktracker.db"
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        import os
+        env_db_url = os.getenv("DATABASE_URL")
+        if env_db_url:
+            self.DATABASE_URL = env_db_url
     
     # Ticketmaster - Get your keys at https://developer.ticketmaster.com/
     TICKETMASTER_API_KEY: Optional[str] = ""

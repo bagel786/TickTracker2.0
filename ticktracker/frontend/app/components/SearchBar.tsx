@@ -47,6 +47,11 @@ export default function SearchBar() {
                     Search
                 </button>
             </div>
+            <div className="mt-4 text-center">
+                <a href="/transparency" className="text-xs text-gray-500 hover:text-white underline decoration-dotted transition-colors">
+                    🔍 How our Model Works & Transparency
+                </a>
+            </div>
         </form>
     );
 }

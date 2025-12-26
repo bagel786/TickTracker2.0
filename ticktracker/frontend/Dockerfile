@@ -52,4 +52,5 @@ ENV HOSTNAME "0.0.0.0"
 
 # Use shell form to ensure environment variables are loaded correctly
 # Use shell form to ensure environment variables are loaded correctly
-CMD node server.js
+# Explicitly pass the PORT environment variable to the node process using a shell wrapper
+CMD ["sh", "-c", "node server.js"]

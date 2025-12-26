@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Event, EventDetail, Prediction, SearchParams } from './types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ticktracker-backend-production.up.railway.app';
 
 const api = axios.create({ 
     baseURL: API_URL,

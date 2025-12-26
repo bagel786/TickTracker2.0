@@ -57,4 +57,5 @@ USER nextjs
 ENV HOSTNAME "0.0.0.0"
 ENV HOST "0.0.0.0"
 
-CMD ["./docker-entrypoint.sh"]
+# Start the server using node
+CMD node server.js

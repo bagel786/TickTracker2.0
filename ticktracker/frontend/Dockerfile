@@ -51,4 +51,5 @@ EXPOSE 3000
 ENV HOSTNAME "0.0.0.0"
 
 # Use shell form to ensure environment variables are loaded correctly
-CMD ["node", "server.js"]
+# Use shell form to ensure environment variables are loaded correctly
+CMD node server.js

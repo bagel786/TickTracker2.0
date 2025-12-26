@@ -58,4 +58,6 @@ ENV HOSTNAME "0.0.0.0"
 ENV HOST "0.0.0.0"
 
 # Start the server using node
-CMD node server.js
+# Force binding to port 3000 by ignoring any injected PORT variable
+# This aligns with the Railway Public Networking setting of 3000
+CMD ["sh", "-c", "PORT=3000 node server.js"]

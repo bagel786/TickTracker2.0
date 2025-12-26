@@ -46,10 +46,9 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
-# set hostname to localhost
-ENV hostname "0.0.0.0"
+# Avoid hardcoding PORT ENV to 3000 so Railway's dynamic port is used
+# ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
 
-# Fix for Railway dynamic port
-# We use a shell command to ensure PORT is passed correctly
-CMD node server.js
+# Use shell form to ensure environment variables are loaded correctly
+CMD ["node", "server.js"]

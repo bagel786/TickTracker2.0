@@ -30,7 +30,8 @@ export default function ReportPriceModal({ isOpen, onClose, eventId, eventName }
                 throw new Error("Please enter a valid positive price.");
             }
 
-            const response = await fetch(`http://localhost:8000/events/${eventId}/report-price`, {
+            const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://ticktracker-backend-production.up.railway.app';
+            const response = await fetch(`${API_BASE}/events/${eventId}/report-price`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

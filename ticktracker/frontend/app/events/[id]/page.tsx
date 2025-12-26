@@ -111,8 +111,11 @@ export default function EventPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <div className="flex justify-between text-sm">
-                                        <span className="text-gray-400">Confidence Score</span>
+                                    <div className="flex justify-between text-sm group relative cursor-help">
+                                        <span className="text-gray-400 border-b border-dotted border-gray-600">Confidence Score (Model Certainty)</span>
+                                        <div className="absolute bottom-full left-0 mb-2 hidden group-hover:block w-48 p-2 bg-gray-900 border border-white/10 rounded text-xs text-gray-300 z-20">
+                                            Based on event type, time-to-event, and historical volatility patterns.
+                                        </div>
                                         <span className="text-white font-bold">{(prediction.confidence * 100).toFixed(0)}%</span>
                                     </div>
                                     <div className="h-2 bg-white/10 rounded-full overflow-hidden">
@@ -124,7 +127,7 @@ export default function EventPage() {
                                 </div>
 
                                 <p className="text-sm text-gray-400 pt-4 border-t border-white/10">
-                                    Based on historical trends, we predict prices will {prediction.prediction === 'buy' ? 'rise' : 'fall'} in the next 7 days.
+                                    Historical patterns suggest a <strong>{prediction.prediction === 'buy' ? 'upward' : 'downward'} trend</strong> over the next 7 days.
                                 </p>
                             </div>
                         )}

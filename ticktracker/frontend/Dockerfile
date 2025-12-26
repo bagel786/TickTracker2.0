@@ -44,14 +44,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-EXPOSE 3000
+# Expose the dynamic port if possible, but 3000 is standard for internal
+# EXPOSE 3000
 
-# Avoid hardcoding PORT ENV to 3000 so Railway's dynamic port is used
-# ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
-# Use shell form to ensure environment variables are loaded correctly
-# Use shell form to ensure environment variables are loaded correctly
-# Explicitly pass the PORT environment variable to the node process using a shell wrapper
-# Explicitly pass the PORT environment variable to the node process using a shell wrapper
-CMD ["sh", "-c", "PORT=${PORT:-3000} node server.js"]
+CMD ["node", "server.js"]

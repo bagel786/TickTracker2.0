@@ -116,6 +116,13 @@ def infer_base_price_from_name(name_lower: str) -> float:
     elif any(k in name_lower for k in ['orchestra', 'symphony']):
         base_price = 60.0
         
+    # Add deterministic jitter to avoid identical prices for similar events
+    # Use a simple hash of the name to add +/- 20% variance
+    name_hash = sum(ord(c) for c in name_lower)
+    variance_modifier = (name_hash % 40 - 20) / 100.0 # -0.20 to +0.20
+    
+    base_price = base_price * (1.0 + variance_modifier)
+        
     return base_price
 
 def get_city_multiplier(city: Optional[str]) -> float:

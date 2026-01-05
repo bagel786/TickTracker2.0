@@ -9,3 +9,5 @@ numpy
 scikit-learn
 joblib
 python-multipart
+beautifulsoup4
+lxml

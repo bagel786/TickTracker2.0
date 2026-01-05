@@ -280,11 +280,39 @@ async def search_all_events(query: str, location: str, start_date: Optional[date
                 break
         
         if not is_dup:
-            # If no price, generate estimated price
-            if event.price_low is None:
-                event = generate_mock_price(event)
             unique_events.append(event)
-                
+            
+    # --- Real-time Enrichment Step ---
+    # Identify top 5 events that are missing prices and try to scrape them
+    from utils import scraper
+    
+    events_to_scrape = []
+    indices_to_update = []
+    
+    for i, event in enumerate(unique_events):
+        if len(events_to_scrape) >= 5:
+            break
+        # Ticketmaster events without price are good candidates
+        if event.price_low is None and "ticketmaster" in event.source:
+             events_to_scrape.append(event)
+             indices_to_update.append(i)
+             
+    if events_to_scrape:
+        print(f"Scraping prices for {len(events_to_scrape)} events...")
+        tasks = [scraper.scrape_event_price(e.url) for e in events_to_scrape]
+        results = await asyncio.gather(*tasks)
+        
+        for idx, (low, high) in zip(indices_to_update, results):
+            if low is not None:
+                unique_events[idx].price_low = low
+                unique_events[idx].price_high = high
+                unique_events[idx].source = unique_events[idx].source.replace(" (Est.)", "") # Remove estimate flag if it was there (though we check is None above)
+    
+    # Fallback: Apply estimates to any remaining events without prices
+    for event in unique_events:
+        if event.price_low is None:
+            event = generate_mock_price(event)
+            
     return unique_events
 
 def generate_mock_price(event: schemas.Event) -> schemas.Event:

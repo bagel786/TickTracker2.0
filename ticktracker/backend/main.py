@@ -15,9 +15,11 @@ import sys
 
 # ... existing imports ...
 from fastapi import Request
+from routers import enhanced_charts
 
 app = FastAPI(title=settings.settings.PROJECT_NAME)
 
+app.include_router(enhanced_charts.router)
 port = os.getenv("PORT", "8000")
 print(f"🚀 Starting TickTracker Backend on PORT {port}...")
 
